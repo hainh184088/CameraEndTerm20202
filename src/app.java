@@ -24,50 +24,52 @@ public class app {
             switch (choice) {
                 case 1:
                     String check = "y";
+                    String checkReadFile;
                     int length, width, height;
                     int x1, y1, z1, x2, y2, z2;
                     int objectLength, objectHeight;
                     System.out.println("Create by hand or import file(y/n): ");
-                    check = keyboard.nextLine();
-                    check = keyboard.nextLine();
-                    if (check.equals("y")) {
-                        ReadFile.readFile();
-                    }
-                    System.out.println("Create room: ");
-                    System.out.println("Length: ");
-                    length = keyboard.nextInt();
-                    System.out.println("Width: ");
-                    width = keyboard.nextInt();
-                    System.out.println("Height: ");
-                    height = keyboard.nextInt();
-                    room.setRoomLength(length);
-                    room.setRoomWidth(width);
-                    room.setRoomHeight(height);
-                    check = "y";
-                    while (check.equals("y")) {
-                        System.out.println("Create new object: ");
-                        System.out.println("X1 coordinate: ");
-                        x1 = keyboard.nextInt();
-                        System.out.println("Y1 coordinate: ");
-                        y1 = keyboard.nextInt();
-                        System.out.println("Z1 coordinate: ");
-                        z1 = keyboard.nextInt();
-                        System.out.println("X2 coordinate: ");
-                        x2 = keyboard.nextInt();
-                        System.out.println("Y2 coordinate: ");
-                        y2 = keyboard.nextInt();
-                        System.out.println("Z2 coordinate: ");
-                        z2 = keyboard.nextInt();
-                        System.out.println("Object Length: ");
-                        objectLength = keyboard.nextInt();
-                        System.out.println("Object Height: ");
-                        objectHeight = keyboard.nextInt();
-                        Object newObject = new Object(x1, y1, z1, x2, y2, z2, objectLength, objectHeight);
-                        room.addObject(newObject);
-                        if (room.checkObjectValidity(newObject) == 1) ;
-                        System.out.println("Do you want to create next object: ");
-                        check = keyboard.nextLine();
-                        check = keyboard.nextLine();
+                    checkReadFile = keyboard.nextLine();
+                    checkReadFile = keyboard.nextLine();
+                    if (checkReadFile.equals("y")) {
+                        ReadFile.readFile(room);
+                    } else {
+                        System.out.println("Create room: ");
+                        System.out.println("Length: ");
+                        length = keyboard.nextInt();
+                        System.out.println("Width: ");
+                        width = keyboard.nextInt();
+                        System.out.println("Height: ");
+                        height = keyboard.nextInt();
+                        room.setRoomLength(length);
+                        room.setRoomWidth(width);
+                        room.setRoomHeight(height);
+                        check = "y";
+                        while (check.equals("y")) {
+                            System.out.println("Create new object: ");
+                            System.out.println("X1 coordinate: ");
+                            x1 = keyboard.nextInt();
+                            System.out.println("Y1 coordinate: ");
+                            y1 = keyboard.nextInt();
+                            System.out.println("Z1 coordinate: ");
+                            z1 = keyboard.nextInt();
+                            System.out.println("X2 coordinate: ");
+                            x2 = keyboard.nextInt();
+                            System.out.println("Y2 coordinate: ");
+                            y2 = keyboard.nextInt();
+                            System.out.println("Z2 coordinate: ");
+                            z2 = keyboard.nextInt();
+                            System.out.println("Object Length: ");
+                            objectLength = keyboard.nextInt();
+                            System.out.println("Object Height: ");
+                            objectHeight = keyboard.nextInt();
+                            Object newObject = new Object(x1, y1, z1, x2, y2, z2, objectLength, objectHeight);
+                            if (room.checkObjectValidity(newObject) == 1) ;
+                            room.addObject(newObject);
+                            System.out.println("Do you want to create next object: ");
+                            check = keyboard.nextLine();
+                            check = keyboard.nextLine();
+                        }
                     }
                     break;
                 case 2:
@@ -112,14 +114,14 @@ public class app {
                         for (int j = 0; j <= room.getRoomWidth(); j += step) {
                             coordinates.get(k).add(new ArrayList<Integer>(room.getRoomLength()));
                             for (int i = 0; i <= room.getRoomLength(); i += step) {
-                                newPoint.setX(i*stepTimes);
-                                newPoint.setY(j*stepTimes);
-                                newPoint.setZ(k*stepTimes);
+                                newPoint.setX(i * stepTimes);
+                                newPoint.setY(j * stepTimes);
+                                newPoint.setZ(k * stepTimes);
                                 newPoint.setCovered(0);
                                 newPoint.setSeen(0);
                                 newPoint.setInsideObject(0);
                                 newPoint.checkPointStatus(room);
-                                coordinates.get((int) (k*stepTimes)).get((int) (j*stepTimes)).add((int) (i*stepTimes), newPoint.setPointStatus());
+                                coordinates.get((int) (k * stepTimes)).get((int) (j * stepTimes)).add((int) (i * stepTimes), newPoint.setPointStatus());
                             }
                         }
                     }
@@ -128,7 +130,7 @@ public class app {
                     for (int k = 0; k <= room.getRoomHeight(); k += step) {
                         System.out.println();
                         for (int j = 0; j <= room.getRoomWidth(); j += step) {
-                            System.out.print(coordinates.get((int) (k*stepTimes)).get((int) (j*stepTimes)).get(0) + " ");
+                            System.out.print(coordinates.get((int) (k * stepTimes)).get((int) (j * stepTimes)).get(0) + " ");
                         }
                     }
                     System.out.println();
@@ -136,9 +138,10 @@ public class app {
                     for (int j = 0; j <= room.getRoomWidth(); j += step) {
                         System.out.println();
                         for (int i = 0; i <= room.getRoomLength(); i += step) {
-                            System.out.print(coordinates.get(0).get((int) (j*stepTimes)).get((int) (i*stepTimes)) + " ");
+                            System.out.print(coordinates.get(0).get((int) (j * stepTimes)).get((int) (i * stepTimes)) + " ");
                         }
                     }
+                    System.out.println();
                     break;
 
             }

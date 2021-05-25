@@ -1,4 +1,6 @@
 package ReadFile;// Import package cần thiết
+import Room.Room;
+
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
@@ -13,11 +15,18 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-
+import javax.swing.JFileChooser;
 public class ReadFile {
-    public static void readFile() throws IOException {
-
-        String url = "../source/file.txt";
+     public static void readFile(Room room) throws IOException {
+         JFileChooser c = new JFileChooser();
+         String filename = "";
+         String dir = "";
+         int rVal = c.showOpenDialog(null);
+         if (rVal == JFileChooser.APPROVE_OPTION) {
+             filename = c.getSelectedFile().getName();
+             dir = c.getCurrentDirectory().toString();
+         }
+         String url = dir + "/" + filename;
 
         // Đọc dữ liệu từ File với BufferedReader
         FileInputStream fileInputStream = null;
