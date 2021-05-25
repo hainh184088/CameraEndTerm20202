@@ -222,22 +222,20 @@ public class Point {
         for (Camera tempCamera : room.getListCamera()) {
             listSurfaceCamera.add(room.cameraSurfacePoint(tempCamera));
             if (this.checkPointCovered(tempCamera, listObjects) == 0 && checkPointCovered == 0) {
-                checkPointCovered = 0;
             } else {
                 checkPointCovered = 1;
             }
         }
         this.setCovered(checkPointCovered);
         for (Object tempObject : listObjects) {
-            if (this.checkPointInsideObject(tempObject) == 0 && checkPointInsideObject == 0)
-                checkPointInsideObject = 0;
+            if (this.checkPointInsideObject(tempObject) == 0 && checkPointInsideObject == 0) {
+            }
             else
                 checkPointInsideObject = 1;
         }
         this.setInsideObject(checkPointInsideObject);
         for (Point[] temp : listSurfaceCamera) {
             if (this.checkPointInCameraVision(temp) == 0 && checkPointInCameraVision == 0) {
-                checkPointInCameraVision = 0;
             } else checkPointInCameraVision = 1;
         }
         this.setSeen(checkPointInCameraVision);
@@ -245,10 +243,8 @@ public class Point {
 
 
     public int setPointStatus() {
-        System.out.println(this.getCovered() + " " + this.getInsideObject() + " " + this.getSeen());
         if (this.getCovered() == 0 && this.getInsideObject() == 0 && this.getSeen() == 1) {
             return 0;
         } else return 1;
-//
     }
 }
