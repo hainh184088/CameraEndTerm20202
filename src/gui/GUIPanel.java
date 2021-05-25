@@ -17,17 +17,6 @@ public class GUIPanel extends JPanel {
     public GUIPanel(ArrayList<ArrayList<Integer>> status)
     {
         super();
-//        setSize(250,100);
-//		setLayout(null);
-//		//setResizable(false);
-//		
-//		Dimension dimension = Toolkit.getDefaultToolkit().getScreenSize();
-//		int x = (int) ((dimension.getWidth() - 300))/2;
-//		int y = (int) ((dimension.getHeight() - 200))/2;
-//		setLocation(x, y);
-//		
-//		setVisible(false);
-		//setModal(true);
         this.status = status;
     }
 

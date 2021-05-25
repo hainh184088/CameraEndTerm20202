@@ -8,7 +8,6 @@ import java.util.ArrayList;
 import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
-import javax.swing.JPanel;
 import javax.swing.JTextField;
 
 import camera.Camera;
@@ -463,11 +462,6 @@ public class HomeFrame extends GUIFrame {
 	    			ArrayList<ArrayList<Integer>> status3 = new ArrayList<ArrayList<Integer>>();
 	    			ArrayList<ArrayList<Integer>> status4 = new ArrayList<ArrayList<Integer>>();
 	    			ArrayList<ArrayList<Integer>> status5 = new ArrayList<ArrayList<Integer>>();
-//	    			int[][] status1 = null;
-//	    			int[][] status2 = null;
-//	    			int[][] status3 = null;
-//	    			int[][] status4 = null;
-//	    			int[][] status5 = null;
 	    			Point newPoint = new Point(0, 0, 0);
                     for (int k = 0; k <= room.getRoomHeight(); k += step) {
                         coordinates.add(new ArrayList<ArrayList<Integer>>(room.getRoomWidth()));
@@ -534,7 +528,7 @@ public class HomeFrame extends GUIFrame {
 	    			//displayHiddenDialog.okJButton.setSize(100,30);
 	    			//displayHiddenDialog.okJButton.setLocation(450,400);
 	    			//displayHiddenDialog.okJButton.setFocusPainted(false);
-	    			add(displayHiddenDialog.okJButton);
+	    			add(displayHiddenDialog.okJButton); // ???
 	    				    			
 	    			JLabel vertX0 = new JLabel("surface vertical with x = 0");
 	    			JLabel vertXL = new JLabel("surface vertical with x = room length");
@@ -581,35 +575,14 @@ public class HomeFrame extends GUIFrame {
 	    			displayHiddenDialog.add(panel4);
 	    			displayHiddenDialog.add(panel5);
 	    			
-//	    			panel1.paintComponent(null);
-//	    			panel2.paintComponent(null);
-//	    			panel3.paintComponent(null);
-//	    			panel4.paintComponent(null);
-//	    			panel5.paintComponent(null);
-	    			
 	    			displayHiddenDialog.setVisible(true);
 	    		}
 	    			
-	    		//JOptionPane.showMessageDialog(null, "Hinh chieu: " );
 	    	}
 	    		
 	    });
 	    
 	    add(displayHidden);
-	    
-//	    displayVolume.setSize(400, 40);
-//	    displayVolume.setLocation(100, 380);
-//	    displayVolume.setFocusPainted(false);
-//	    displayVolume.addActionListener(new ActionListener() {
-//	    	
-//	    	@Override
-//	    	public void actionPerformed(ActionEvent e) {
-//	    		//JOptionPane.showMessageDialog(null, "The tich: " );
-//	    		};
-//	    		
-//	    });
-//	    
-//	    add(displayVolume);
 	    
 	 }
 	 
