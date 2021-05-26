@@ -82,9 +82,6 @@ public class Room {
                         (checking.getA().getZ() < 0)
 
         ) {
-//            System.out.print(c[0]);
-//            System.out.print(c[1]);
-//            System.out.print(c[2]);
             System.out.println("Object is not inside the room");
             return 0;
         } else if (Point.lengthLine(cPoint, aPoint) == checking.getObjectLength())
@@ -98,16 +95,11 @@ public class Room {
     public int checkObjectValidity(Object checking) {
         int check;
 
-        if (listObject.contains(checking)) {
-            if (checkObjectInsideRoom(checking) == 1) {
-                System.out.println("The object is in the room");
-                check = 1;
-            } else {
-                System.out.println("Object parts are out of the room");
-                check = 0;
-            }
+        if (checkObjectInsideRoom(checking) == 1) {
+            System.out.println("The object is in the room");
+            check = 1;
         } else {
-            System.out.println("Object is not in the room");
+            System.out.println("Object parts are out of the room");
             check = 0;
         }
         return check;
@@ -177,15 +169,9 @@ public class Room {
     }
 
     public Point[] cameraSurfacePoint(Camera camera) {
-        double cWidth = Math.pow(camera.getRange(), 2) * Math.sin(Math.toRadians(camera.getAngleWidth()));
-        double cHeight = Math.pow(camera.getRange(), 2) * Math.sin(Math.toRadians(camera.getAngleHeight()));
-        double b = -camera.getRange();
-        double aWidth = 1.0 / 4.0 * Math.sin(Math.toRadians(camera.getAngleWidth()));
-        double aHeight = 1.0 / 4.0 * Math.sin(Math.toRadians(camera.getAngleHeight()));
-        double deltaWidth = Math.pow(b, 2) - 4.0 * aWidth * cWidth;
-        double deltaHeight = Math.pow(b, 2) - 4.0 * aHeight * cHeight;
-        double width = (-b - Math.sqrt(deltaWidth)) / (2.0 * aWidth);
-        double height = (-b - Math.sqrt(deltaHeight)) / (2.0 * aHeight);
+        double width = 2.0 * Math.tan(Math.toRadians(camera.getAngleWidth())/2.0) * camera.getRange();
+
+        double height = 2.0 * Math.tan(Math.toRadians(camera.getAngleHeight())/2.0) * camera.getRange();
 //        System.out.println("Width" + width + "Height" + height);
         Point cameraPoint = new Point(camera.getxCamera(), camera.getyCamera(), camera.getzCamera());
         Point O = new Point();

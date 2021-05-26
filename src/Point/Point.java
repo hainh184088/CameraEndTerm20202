@@ -71,10 +71,10 @@ public class Point {
     }
 
     public static double lengthLine(Point point1, Point point2) {
-        return Math.sqrt(Math.pow((point1.x - point2.x), 2) + Math.pow((point1.y - point2.y), 2) + Math.pow((point1.z - point2.z), 2));
+        return Math.sqrt(Math.pow((point1.getX() - point2.getX()), 2) + Math.pow((point1.getY() - point2.getY()), 2) + Math.pow((point1.getZ() - point2.getZ()), 2));
     }
 
-    public double findDistanceFromPointToLine(Point pointLine1, Point pointLine2) {
+    public double   findDistanceFromPointToLine(Point pointLine1, Point pointLine2) {
         double[] lineVector = new double[3];
         lineVector[0] = pointLine2.getX() - pointLine1.getX();
         lineVector[1] = pointLine2.getY() - pointLine1.getY();
@@ -92,7 +92,7 @@ public class Point {
     }
 
     public double findDistanceFromPointToSurface(double[] equationSurface) {
-        return Math.abs(this.x * equationSurface[0] + this.y * equationSurface[1] + this.z * equationSurface[2] + equationSurface[3]) / Math.sqrt(Math.pow(equationSurface[0], 2) + Math.pow(equationSurface[1], 2) + Math.pow(equationSurface[2], 2));
+        return Math.abs(this.getX() * equationSurface[0] + this.getY() * equationSurface[1] + this.getZ() * equationSurface[2] + equationSurface[3]) / Math.sqrt(Math.pow(equationSurface[0], 2) + Math.pow(equationSurface[1], 2) + Math.pow(equationSurface[2], 2));
     }
 
     public double[] findPointOnSurface(Point point, Point cameraPoint, double[] equationSurface) {
@@ -113,7 +113,10 @@ public class Point {
         if (lengthLine(pointOnSurface, cameraPoint) > lengthLine(this, cameraPoint)) {
             System.out.println("This point is not obscured");
             return 0;
-        } else return 1;
+        } else {
+            System.out.println("This point is obscured");
+            return 1;
+        }
     }
 
     public double[] findProjectionToSurface(Point point, double[] equationSurface) {
@@ -131,15 +134,17 @@ public class Point {
         double equationSurface1[] = object.getEquationVerticalSurface1();
         double equationFrontSurface[] = object.getEquationFrontSurface();
         double equationBackSurface[] = object.getEquationBackSurface();
+        double equationUpSurface[] = object.getEquationUpSurface();
+        double equationDownSurface[] = object.getEquationDownSurface();
 
-        double height1 = Math.abs(this.z - object.getB().getZ());
-        double height2 = Math.abs(object.getObjectHeight() - this.z);
+        double height1 = this.findDistanceFromPointToSurface(equationUpSurface);
+        double height2 = this.findDistanceFromPointToSurface(equationDownSurface);
         double heightSurf2 = this.findDistanceFromPointToSurface(equationSurface2);
         double heightSurf1 = this.findDistanceFromPointToSurface(equationSurface1);
         double heightFront = this.findDistanceFromPointToSurface(equationFrontSurface);
         double heightBack = this.findDistanceFromPointToSurface(equationBackSurface);
 
-        if (object.getObjectVolume() == 1.0 / 3.0 * ((height1 + height2) * (object.getObjectLength() * object.getObjectWidth()) + (heightSurf1 + heightSurf2) * (object.getObjectWidth() * object.getObjectHeight()) + (heightFront + heightBack) * (object.getObjectLength() * object.getObjectHeight()))) {
+        if (Math.abs(object.getObjectVolume() - 1.0 / 3.0 * ((height1 + height2) * (object.getObjectLength() * object.getObjectWidth()) + (heightSurf1 + heightSurf2) * (object.getObjectWidth() * object.getObjectHeight()) + (heightFront + heightBack) * (object.getObjectLength() * object.getObjectHeight()))) <= 1) {
             System.out.println("This point is inside the object");
             return 1;
         } else {
@@ -148,13 +153,17 @@ public class Point {
     }
 
     public int checkPointCovered(Camera camera, ArrayList<Object> objects) {
-        Point cameraPoint = new Point(camera.getxCamera(), camera.getzCamera(), camera.getzCamera());
-        int checkSurface1 = -1, checkSurface2 = -1, checkBackSurface = -1;
+        Point cameraPoint = new Point(camera.getxCamera(), camera.getyCamera(), camera.getzCamera());
+        int checkSurface1, checkSurface2, checkBackSurface;
+        int checkUpSurface;
+        int checkFrontSurface;
         int check = 0;
         for (Object object : objects) {
-            double equationSurface2[] = object.getEquationVerticalSurface2();
-            double equationSurface1[] = object.getEquationVerticalSurface1();
-            double equationBackSurface[] = object.getEquationBackSurface();
+            double[] equationSurface2 = object.getEquationVerticalSurface2();
+            double[] equationSurface1 = object.getEquationVerticalSurface1();
+            double[] equationBackSurface = object.getEquationBackSurface();
+            double[] equationFrontSurface = object.getEquationFrontSurface();
+            double[] equationUpSurface = object.getEquationUpSurface();
 
             double[] pointSurface1 = findPointOnSurface(this, cameraPoint, equationSurface1);
             Point pointOnSurface1 = new Point(pointSurface1[0], pointSurface1[1], pointSurface1[2]);
@@ -173,7 +182,20 @@ public class Point {
             if (pointOnBackSurface.checkPointInsideObject(object) == 1)
                 checkBackSurface = checkPointObscurity(cameraPoint, pointOnBackSurface);
             else checkBackSurface = 0;
-            if ((checkBackSurface == 0) && (checkSurface1 == 0) && (checkSurface2 == 0) && (check == 0)) {
+
+            double[] pointUpSurface = findPointOnSurface(this, cameraPoint, equationUpSurface);
+            Point pointOnUpSurface = new Point(pointUpSurface[0], pointUpSurface[1], pointUpSurface[2]);
+            if (pointOnUpSurface.checkPointInsideObject(object) == 1)
+                checkUpSurface = checkPointObscurity(cameraPoint, pointOnUpSurface);
+            else checkUpSurface = 0;
+
+            double[] pointFrontSurface = findPointOnSurface(this, cameraPoint, equationFrontSurface);
+            Point pointOnFrontSurface = new Point(pointFrontSurface[0], pointFrontSurface[1], pointFrontSurface[2]);
+            if (pointOnFrontSurface.checkPointInsideObject(object) == 1)
+                checkFrontSurface = checkPointObscurity(cameraPoint, pointOnFrontSurface);
+            else checkFrontSurface = 0;
+
+            if ((checkBackSurface == 0) && (checkSurface1 == 0) && (checkSurface2 == 0) && (checkFrontSurface == 0) && (checkUpSurface ==0) && (check == 0)) {
                 System.out.println("The point is not covered by any objects");
                 check = 0;
             } else check = 1;
@@ -201,13 +223,14 @@ public class Point {
 //        double checkAD = (D.getX() - cameraSurface[2].getX()) * (this.y - cameraSurface[2].getY()) - (this.x - cameraSurface[2].getX()) * (D.getY() - cameraSurface[2].getY());
 //        double checkBC = (cameraSurface[3].getX() - B.getX()) * (this.y - B.getY()) - (this.x - B.getX()) * (cameraSurface[3].getX() - B.getY());
         if (
-                1.0 / 2.0 * ((K.findDistanceFromPointToLine(A, C) + K.findDistanceFromPointToLine(D, B)) * lengthLine(A, C) +
-                        (K.findDistanceFromPointToLine(A, D) + K.findDistanceFromPointToLine(B, C)) * lengthLine(B, C)) ==
-                        lengthLine(B, D) * lengthLine(B, C)
+                (1.0 / 2.0 * ((K.findDistanceFromPointToLine(A, C) + K.findDistanceFromPointToLine(D, B)) * lengthLine(A, C) +
+                        (K.findDistanceFromPointToLine(A, D) + K.findDistanceFromPointToLine(B, C)) * lengthLine(B, C)) -
+                        lengthLine(B, D) * lengthLine(B, C)) <= 1
         ) {
             System.out.println("Point is inside camera vision");
             return 1;
         } else {
+//            System.out.println("K: " + K.getX() + " " +K.getZ());
             return 0;
         }
     }
@@ -215,7 +238,6 @@ public class Point {
     public void checkPointStatus(Room room) {
         int checkPointInCameraVision = 0;
         int checkPointCovered = 0;
-        int checkPointInsideObject = 0;
         ArrayList<Object> listObjects = room.getListObject();
         ArrayList<Point[]> listSurfaceCamera = new ArrayList<>();
 
@@ -228,12 +250,13 @@ public class Point {
         }
         this.setCovered(checkPointCovered);
         for (Object tempObject : listObjects) {
-            if (this.checkPointInsideObject(tempObject) == 0 && checkPointInsideObject == 0) {
+            if (this.checkPointInsideObject(tempObject) == 1) {
+                this.setInsideObject(1);
             }
             else
-                checkPointInsideObject = 1;
+               this.setInsideObject(0);
+            break;
         }
-        this.setInsideObject(checkPointInsideObject);
         for (Point[] temp : listSurfaceCamera) {
             if (this.checkPointInCameraVision(temp) == 0 && checkPointInCameraVision == 0) {
             } else checkPointInCameraVision = 1;

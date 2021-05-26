@@ -64,6 +64,7 @@ public class app {
                             System.out.println("Object Height: ");
                             objectHeight = keyboard.nextInt();
                             Object newObject = new Object(x1, y1, z1, x2, y2, z2, objectLength, objectHeight);
+
                             if (room.checkObjectValidity(newObject) == 1) ;
                             room.addObject(newObject);
                             System.out.println("Do you want to create next object: ");
@@ -109,14 +110,15 @@ public class app {
                     break;
                 case 4:
                     Point newPoint = new Point(0, 0, 0);
+
                     for (int k = 0; k <= room.getRoomHeight(); k += step) {
                         coordinates.add(new ArrayList<ArrayList<Integer>>(room.getRoomWidth()));
                         for (int j = 0; j <= room.getRoomWidth(); j += step) {
                             coordinates.get(k).add(new ArrayList<Integer>(room.getRoomLength()));
                             for (int i = 0; i <= room.getRoomLength(); i += step) {
-                                newPoint.setX(i * stepTimes);
-                                newPoint.setY(j * stepTimes);
-                                newPoint.setZ(k * stepTimes);
+                                newPoint.setX(i);
+                                newPoint.setY(j);
+                                newPoint.setZ(k);
                                 newPoint.setCovered(0);
                                 newPoint.setSeen(0);
                                 newPoint.setInsideObject(0);
@@ -127,15 +129,17 @@ public class app {
                     }
 
                     //suface vertical with x = 0
-                    for (int k = 0; k <= room.getRoomHeight(); k += step) {
+                    for (int k = room.getRoomHeight(); k >= 0; k -= step) {
                         System.out.println();
                         for (int j = 0; j <= room.getRoomWidth(); j += step) {
                             System.out.print(coordinates.get((int) (k * stepTimes)).get((int) (j * stepTimes)).get(0) + " ");
+                        if(coordinates.get((int) (k * stepTimes)).get((int) (j * stepTimes)).get(0) == 1){
+                        }
                         }
                     }
                     System.out.println();
                     //surface horizontal with k = 0
-                    for (int j = 0; j <= room.getRoomWidth(); j += step) {
+                    for (int j = room.getRoomWidth(); j >= 0; j -= step) {
                         System.out.println();
                         for (int i = 0; i <= room.getRoomLength(); i += step) {
                             System.out.print(coordinates.get(0).get((int) (j * stepTimes)).get((int) (i * stepTimes)) + " ");
