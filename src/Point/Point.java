@@ -1,10 +1,10 @@
 package Point;
 
+import java.util.ArrayList;
+
 import Camera.Camera;
 import Object.Object;
 import Room.Room;
-
-import java.util.ArrayList;
 
 public class Point {
     private double x;

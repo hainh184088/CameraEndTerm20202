@@ -184,8 +184,8 @@ public class Room {
         double aHeight = 1.0 / 4.0 * Math.sin(Math.toRadians(camera.getAngleHeight()));
         double deltaWidth = Math.pow(b, 2) - 4.0 * aWidth * cWidth;
         double deltaHeight = Math.pow(b, 2) - 4.0 * aHeight * cHeight;
-        double width = (-b + Math.sqrt(deltaWidth)) / (2.0 * aWidth);
-        double height = (-b + Math.sqrt(deltaHeight)) / (2.0 * aHeight);
+        double width = (-b - Math.sqrt(deltaWidth)) / (2.0 * aWidth);
+        double height = (-b - Math.sqrt(deltaHeight)) / (2.0 * aHeight);
 //        System.out.println("Width" + width + "Height" + height);
         Point cameraPoint = new Point(camera.getxCamera(), camera.getyCamera(), camera.getzCamera());
         Point O = new Point();
