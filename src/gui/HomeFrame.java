@@ -484,14 +484,14 @@ public class HomeFrame extends GUIFrame {
                     	status1.add(new ArrayList<Integer>(room.getRoomHeight()));
                         for (int j = 0; j <= room.getRoomWidth(); j += step) {
                         	//status2[k][j] = coordinates.get((int) (k*stepTimes)).get((int) (j*stepTimes)).get(0);
-                        	status1.get((int) (k*stepTimes)).add((int) (j*stepTimes), coordinates.get((int) (k*stepTimes)).get((int) (j*stepTimes)).get(0));
+                        	status1.get((int) (k*stepTimes)).add((int) (j*stepTimes), coordinates.get((int) ((room.getRoomHeight()-k)*stepTimes)).get((int) (j*stepTimes)).get(0));
                         }
                     }
                     //surface vertical with x = roomLength
                     for (int k = 0; k <= room.getRoomHeight(); k += step) {
                     	status2.add(new ArrayList<Integer>(room.getRoomHeight()));
                         for (int j = 0; j <= room.getRoomWidth(); j += step) {
-                        	status2.get((int) (k*stepTimes)).add((int) (j*stepTimes), coordinates.get((int) (k*stepTimes)).get((int) ((room.getRoomHeight()-j)*stepTimes)).get(room.getRoomLength()));
+                        	status2.get((int) (k*stepTimes)).add((int) (j*stepTimes), coordinates.get((int) ((room.getRoomHeight()-k)*stepTimes)).get((int) ((room.getRoomHeight()-j)*stepTimes)).get(room.getRoomLength()));
                         	//status2[k][j] = coordinates.get((int) (k*stepTimes)).get((int) (j*stepTimes)).get(room.getRoomLength());
                         }
                     }
@@ -499,7 +499,7 @@ public class HomeFrame extends GUIFrame {
                     for (int k = 0; k <= room.getRoomHeight(); k += step) {
                     	status3.add(new ArrayList<Integer>(room.getRoomHeight()));
                         for (int i = 0; i <= room.getRoomLength(); i += step) {
-                        	status3.get((int) (k*stepTimes)).add((int) (i*stepTimes), coordinates.get((int) (k*stepTimes)).get(0).get((int) ((room.getRoomLength()-i)*stepTimes)));
+                        	status3.get((int) (k*stepTimes)).add((int) (i*stepTimes), coordinates.get((int) ((room.getRoomHeight()-k)*stepTimes)).get(0).get((int) ((room.getRoomLength()-i)*stepTimes)));
                         	//status3[k][i] = coordinates.get((int) (k*stepTimes)).get(0).get((int) (i*stepTimes));
                         }
                     }
@@ -507,7 +507,7 @@ public class HomeFrame extends GUIFrame {
                     for (int k = 0; k <= room.getRoomHeight(); k += step) {
                     	status4.add(new ArrayList<Integer>(room.getRoomHeight()));
                         for (int i = 0; i <= room.getRoomLength(); i += step) {
-                        	status4.get((int) (k*stepTimes)).add((int) (i*stepTimes), coordinates.get((int) (k*stepTimes)).get(room.getRoomWidth()).get((int) (i*stepTimes)));
+                        	status4.get((int) (k*stepTimes)).add((int) (i*stepTimes), coordinates.get((int) ((room.getRoomHeight()-k)*stepTimes)).get(room.getRoomWidth()).get((int) (i*stepTimes)));
                         	//status4[k][i] = coordinates.get((int) (k*stepTimes)).get(room.getRoomWidth()).get((int) (i*stepTimes));
                         }
                     }
