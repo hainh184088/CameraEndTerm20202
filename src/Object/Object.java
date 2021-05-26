@@ -8,6 +8,9 @@ public class Object {
     private int objectLength;
     private int objectHeight;
 
+    public Object() {
+    }
+
     public Object(int x1, int y1, int z1, int x2, int y2, int z2, int objectLength, int objectHeight) {
         this.a.setX(x1);
         this.a.setY(y1);

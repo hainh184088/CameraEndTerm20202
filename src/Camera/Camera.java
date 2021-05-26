@@ -6,6 +6,9 @@ public class Camera {
     private int angleHeight;
     private int range;
 
+    public Camera() {
+    }
+
     public Camera(int x, int y, int z, int angleWidth, int angleHeight, int range) {
         this.xCamera = x;
         this.yCamera = y;
