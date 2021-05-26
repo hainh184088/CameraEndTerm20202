@@ -491,7 +491,7 @@ public class HomeFrame extends GUIFrame {
                     for (int k = 0; k <= room.getRoomHeight(); k += step) {
                     	status2.add(new ArrayList<Integer>(room.getRoomHeight()));
                         for (int j = 0; j <= room.getRoomWidth(); j += step) {
-                        	status2.get((int) (k*stepTimes)).add((int) (j*stepTimes), coordinates.get((int) ((room.getRoomHeight()-k)*stepTimes)).get((int) ((room.getRoomHeight()-j)*stepTimes)).get(room.getRoomLength()));
+                        	status2.get((int) (k*stepTimes)).add((int) (j*stepTimes), coordinates.get((int) ((room.getRoomHeight()-k)*stepTimes)).get((int) ((room.getRoomWidth()-j)*stepTimes)).get(room.getRoomLength()));
                         	//status2[k][j] = coordinates.get((int) (k*stepTimes)).get((int) (j*stepTimes)).get(room.getRoomLength());
                         }
                     }
