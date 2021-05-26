@@ -1,8 +1,8 @@
-import Camera.Camera;
-import Point.Point;
-import ReadFile.ReadFile;
-import Room.Room;
-import Object.Object;
+import camera.Camera;
+import object.Object;
+import point.Point;
+import readFile.ReadFile;
+import room.Room;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -128,8 +128,13 @@ public class app {
                         }
                     }
 
+<<<<<<< HEAD
                     //suface vertical with x = 0
                     for (int k = room.getRoomHeight(); k >= 0; k -= step) {
+=======
+                    //surface vertical with x = 0
+                    for (int k = 0; k <= room.getRoomHeight(); k += step) {
+>>>>>>> 63703c0a97642b6e93979e769ec55fbcbf2d8a81
                         System.out.println();
                         for (int j = 0; j <= room.getRoomWidth(); j += step) {
                             System.out.print(coordinates.get((int) (k * stepTimes)).get((int) (j * stepTimes)).get(0) + " ");
