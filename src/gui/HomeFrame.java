@@ -10,11 +10,11 @@ import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JTextField;
 
-import camera.Camera;
-import object.Object;
-import point.Point;
-import readFile.ReadFile;
-import room.Room;
+import Camera.Camera;
+import Object.Object;
+import Point.Point;
+import ReadFile.ReadFile;
+import Room.Room;
 
 public class HomeFrame extends GUIFrame {	
 	
@@ -36,7 +36,7 @@ public class HomeFrame extends GUIFrame {
 		
 		if (reply == JOptionPane.YES_OPTION) {
 			try {
-				ReadFile.readFile();
+				ReadFile.readFile(room);
 			} catch (IOException e1) {
 				// TODO Auto-generated catch block
 				e1.printStackTrace();
@@ -511,11 +511,11 @@ public class HomeFrame extends GUIFrame {
                         	//status4[k][i] = coordinates.get((int) (k*stepTimes)).get(room.getRoomWidth()).get((int) (i*stepTimes));
                         }
                     }
-                    //surface horizontal with k = roomHeight
+                    //surface horizontal with k = 0
                     for (int j = 0; j <= room.getRoomWidth(); j += step) {
                     	status5.add(new ArrayList<Integer>(room.getRoomWidth()));
                         for (int i = 0; i <= room.getRoomLength(); i += step) {
-                        	status5.get((int) (j*stepTimes)).add((int) (i*stepTimes), coordinates.get(room.getRoomHeight()).get((int) (j*stepTimes)).get((int) (i*stepTimes)));
+                        	status5.get((int) (j*stepTimes)).add((int) (i*stepTimes), coordinates.get(0).get((int) (j*stepTimes)).get((int) (i*stepTimes)));
                         	//status5[j][i] = coordinates.get(room.getRoomHeight()).get((int) (j*stepTimes)).get((int) (i*stepTimes));                            
                         }
                     }
@@ -534,7 +534,7 @@ public class HomeFrame extends GUIFrame {
 	    			JLabel vertXL = new JLabel("surface vertical with x = room length");
 	    			JLabel vertY0 = new JLabel("surface vertical with y = 0");
 	    			JLabel vertYW = new JLabel("surface vertical with y = room width");
-	    			JLabel horiZH = new JLabel("surface vertical with k = room height");
+	    			JLabel horiZH = new JLabel("surface vertical with k = 0");
 	    			
 	    			vertX0.setSize(250,40);
 	    			vertX0.setLocation(10,5);
