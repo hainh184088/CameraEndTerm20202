@@ -91,7 +91,7 @@ Add additional notes about how to deploy this on a live system.
 ## ✍️ Authors <a name = "authors"></a>
 - [@hainh184088](https://github.com/hainh184088/) - Idea & Initial work
 
-See also the list of [contributors](https://https://github.com/hainh184088/CameraEndTerm20202/contributors) who participated in this project.
+See also the list of [contributors](https://github.com/hainh184088/CameraEndTerm20202/contributors) who participated in this project.
 
 ## 🎉 Acknowledgements <a name = "acknowledgement"></a>
 - References
