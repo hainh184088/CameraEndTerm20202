@@ -10,11 +10,11 @@ import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JTextField;
 
-import camera.Camera;
-import object.Object;
-import point.Point;
-import readFile.ReadFile;
-import room.Room;
+import Camera.Camera;
+import Object.Object;
+import Point.Point;
+import ReadFile.ReadFile;
+import Room.Room;
 
 public class HomeFrame extends GUIFrame {	
 	
@@ -36,7 +36,7 @@ public class HomeFrame extends GUIFrame {
 		
 		if (reply == JOptionPane.YES_OPTION) {
 			try {
-				ReadFile.readFile();
+				ReadFile.readFile(room);
 			} catch (IOException e1) {
 				// TODO Auto-generated catch block
 				e1.printStackTrace();
@@ -484,14 +484,14 @@ public class HomeFrame extends GUIFrame {
                     	status1.add(new ArrayList<Integer>(room.getRoomHeight()));
                         for (int j = 0; j <= room.getRoomWidth(); j += step) {
                         	//status2[k][j] = coordinates.get((int) (k*stepTimes)).get((int) (j*stepTimes)).get(0);
-                        	status1.get((int) (k*stepTimes)).add((int) (j*stepTimes), coordinates.get((int) (k*stepTimes)).get((int) (j*stepTimes)).get(0));
+                        	status1.get((int) (k*stepTimes)).add((int) (j*stepTimes), coordinates.get((int) ((room.getRoomHeight()-k)*stepTimes)).get((int) (j*stepTimes)).get(0));
                         }
                     }
                     //surface vertical with x = roomLength
                     for (int k = 0; k <= room.getRoomHeight(); k += step) {
                     	status2.add(new ArrayList<Integer>(room.getRoomHeight()));
                         for (int j = 0; j <= room.getRoomWidth(); j += step) {
-                        	status2.get((int) (k*stepTimes)).add((int) (j*stepTimes), coordinates.get((int) (k*stepTimes)).get((int) (j*stepTimes)).get(room.getRoomLength()));
+                        	status2.get((int) (k*stepTimes)).add((int) (j*stepTimes), coordinates.get((int) ((room.getRoomHeight()-k)*stepTimes)).get((int) ((room.getRoomWidth()-j)*stepTimes)).get(room.getRoomLength()));
                         	//status2[k][j] = coordinates.get((int) (k*stepTimes)).get((int) (j*stepTimes)).get(room.getRoomLength());
                         }
                     }
@@ -499,7 +499,7 @@ public class HomeFrame extends GUIFrame {
                     for (int k = 0; k <= room.getRoomHeight(); k += step) {
                     	status3.add(new ArrayList<Integer>(room.getRoomHeight()));
                         for (int i = 0; i <= room.getRoomLength(); i += step) {
-                        	status3.get((int) (k*stepTimes)).add((int) (i*stepTimes), coordinates.get((int) (k*stepTimes)).get(0).get((int) (i*stepTimes)));
+                        	status3.get((int) (k*stepTimes)).add((int) (i*stepTimes), coordinates.get((int) ((room.getRoomHeight()-k)*stepTimes)).get(0).get((int) ((room.getRoomLength()-i)*stepTimes)));
                         	//status3[k][i] = coordinates.get((int) (k*stepTimes)).get(0).get((int) (i*stepTimes));
                         }
                     }
@@ -507,15 +507,15 @@ public class HomeFrame extends GUIFrame {
                     for (int k = 0; k <= room.getRoomHeight(); k += step) {
                     	status4.add(new ArrayList<Integer>(room.getRoomHeight()));
                         for (int i = 0; i <= room.getRoomLength(); i += step) {
-                        	status4.get((int) (k*stepTimes)).add((int) (i*stepTimes), coordinates.get((int) (k*stepTimes)).get(room.getRoomWidth()).get((int) (i*stepTimes)));
+                        	status4.get((int) (k*stepTimes)).add((int) (i*stepTimes), coordinates.get((int) ((room.getRoomHeight()-k)*stepTimes)).get(room.getRoomWidth()).get((int) (i*stepTimes)));
                         	//status4[k][i] = coordinates.get((int) (k*stepTimes)).get(room.getRoomWidth()).get((int) (i*stepTimes));
                         }
                     }
-                    //surface horizontal with k = roomHeight
+                    //surface horizontal with k = 0
                     for (int j = 0; j <= room.getRoomWidth(); j += step) {
                     	status5.add(new ArrayList<Integer>(room.getRoomWidth()));
                         for (int i = 0; i <= room.getRoomLength(); i += step) {
-                        	status5.get((int) (j*stepTimes)).add((int) (i*stepTimes), coordinates.get(room.getRoomHeight()).get((int) (j*stepTimes)).get((int) (i*stepTimes)));
+                        	status5.get((int) (j*stepTimes)).add((int) (i*stepTimes), coordinates.get(0).get((int) (j*stepTimes)).get((int) (i*stepTimes)));
                         	//status5[j][i] = coordinates.get(room.getRoomHeight()).get((int) (j*stepTimes)).get((int) (i*stepTimes));                            
                         }
                     }
@@ -530,27 +530,27 @@ public class HomeFrame extends GUIFrame {
 	    			//displayHiddenDialog.okJButton.setFocusPainted(false);
 	    			add(displayHiddenDialog.okJButton); // ???
 	    				    			
-	    			JLabel vertX0 = new JLabel("surface vertical with x = 0");
-	    			JLabel vertXL = new JLabel("surface vertical with x = room length");
-	    			JLabel vertY0 = new JLabel("surface vertical with y = 0");
-	    			JLabel vertYW = new JLabel("surface vertical with y = room width");
-	    			JLabel horiZH = new JLabel("surface vertical with k = room height");
+	    			JLabel vertX0 = new JLabel("surface vertical with x = 0 (trái sang phải)");
+	    			JLabel vertXL = new JLabel("surface vertical with x = room length (phải sang trái)");
+	    			JLabel vertY0 = new JLabel("surface vertical with y = 0 (sau sang trước)");
+	    			JLabel vertYW = new JLabel("surface vertical with y = room width (trước sang sau)");
+	    			JLabel horiZ0 = new JLabel("surface horizontal with k = 0 (trên xuống dưới)");
 	    			
-	    			vertX0.setSize(250,40);
+	    			vertX0.setSize(400,40);
 	    			vertX0.setLocation(10,5);
 	    			displayHiddenDialog.add(vertX0);
-	    			vertXL.setSize(250,40);
+	    			vertXL.setSize(400,40);
 	    			vertXL.setLocation(10,415);
 	    			displayHiddenDialog.add(vertXL);
-	    			vertY0.setSize(250,40);
+	    			vertY0.setSize(400,40);
 	    			vertY0.setLocation(420,5);
 	    			displayHiddenDialog.add(vertY0);
-	    			vertYW.setSize(250,40);
+	    			vertYW.setSize(400,40);
 	    			vertYW.setLocation(420,415);
 	    			displayHiddenDialog.add(vertYW);
-	    			horiZH.setSize(250,40);
-	    			horiZH.setLocation(830,100);
-	    			displayHiddenDialog.add(horiZH);
+	    			horiZ0.setSize(400,40);
+	    			horiZ0.setLocation(830,100);
+	    			displayHiddenDialog.add(horiZ0);
 	    			
 	    			GUIPanel panel1 = new GUIPanel(status1);
 	    			GUIPanel panel2 = new GUIPanel(status2);

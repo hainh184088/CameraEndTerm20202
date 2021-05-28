@@ -8,6 +8,9 @@ public class Object {
     private int objectLength;
     private int objectHeight;
 
+    public Object() {
+    }
+
     public Object(int x1, int y1, int z1, int x2, int y2, int z2, int objectLength, int objectHeight) {
         this.a.setX(x1);
         this.a.setY(y1);
@@ -22,6 +25,7 @@ public class Object {
     public Point getA() {
         return a;
     }
+
     public Point getB() {
         return b;
     }
@@ -48,8 +52,6 @@ public class Object {
     }
 
 
-
-
     public double[] findC() {
         double result[] = new double[3];
         double m = this.b.getX() - this.a.getX();
@@ -59,7 +61,7 @@ public class Object {
         double c = Math.pow(this.getObjectLength(), 4) / Math.pow(n, 2) - Math.pow(this.getObjectLength(), 2);
         double delta = Math.pow(b, 2) - a * c;
         result[1] = this.a.getY() + (Math.sqrt(delta) - b) / a;
-        result[0] = this.a.getX() + (Math.pow(this.getObjectLength(), 2) - (result[1] - this.a.getY())*m)/n;
+        result[0] = this.a.getX() + (Math.pow(this.getObjectLength(), 2) - (result[1] - this.a.getY()) * m) / n;
         result[2] = this.a.getZ();
         return result;
     }
@@ -85,7 +87,7 @@ public class Object {
 
     public double[] getEquationVerticalSurface1() {
         double[] result = this.getEquationVerticalSurface2();
-        result[3] = -(result[0] * this.a.getX() + result[1] * this.a.getY());
+        result[3] = 0 - (result[0] * this.a.getX() + result[1] * this.a.getY());
         return result;
     }
 
@@ -104,7 +106,7 @@ public class Object {
 
     public double[] getEquationBackSurface() {
         double[] result = this.getEquationFrontSurface();
-        result[3] = -(result[0] * this.b.getX() + result[1] * this.b.getY());
+        result[3] = 0 - (result[0] * this.b.getX() + result[1] * this.b.getY());
         return result;
     }
 
@@ -119,7 +121,7 @@ public class Object {
 
     public double[] getEquationDownSurface() {
         double[] result = this.getEquationUpSurface();
-        result[3] = -this.a.getZ();
+        result[3] = 0 - this.a.getZ();
         return result;
     }
 
