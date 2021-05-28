@@ -95,7 +95,7 @@ public class Room {
     public int checkObjectValidity(Object checking) {
         int check;
 
-        if (checkObjectInsideRoom(checking) == 1) {
+        if (checkObjectInsideRoom(checking) == 1 && checkObjectPlacement(checking) == 1) {
             System.out.println("The object is in the room");
             check = 1;
         } else {
@@ -127,7 +127,7 @@ public class Room {
                         ((camera.getyCamera() == 0) || (camera.getyCamera() == this.getRoomWidth()))))
                     if ((camera.getAngleWidth() <= 90) && (camera.getAngleHeight() <= 90)) {
                         System.out.println("Camera angle is suitable");
-                        if (camera.getRange() <= 100) {
+                        if (camera.getRange() <= 10000) {
                             System.out.println("Camera range is suitable");
                             check = 1;
                         } else {
@@ -152,26 +152,23 @@ public class Room {
     public int checkObjectPlacement(Object temp) {
         int check = 0;
         double result[] = new double[3];
-        Point aTemp = new Point(temp.getA().getX(), temp.getA().getY(), temp.getA().getZ());
-        Point bTemp = new Point(temp.getB().getX(), temp.getB().getY(), temp.getB().getZ());
-        for (Object object : this.listObject) {
-            if ((object.getA().getZ() + object.getObjectHeight()) == temp.getA().getZ()) {
-                System.out.println("This object may be on another object");
-                check = 1;
-            }
-//            else
-//            if(check == 1)
-//                if(Surface.checkPoinOnSurface(aTemp, ){
-//
-//                }
-        }
+//        for (Object object : this.listObject) {
+//            if (!temp.equals(object)) {
+//                if ((object.getA().getZ() + object.getObjectHeight()) == temp.getA().getZ()) {
+//                    System.out.println("This object may be on another object");
+//                    check = 0;
+//                    break;
+//                } else check = 1;
+//            } else check = 0;
+//        }
+        check = 1;
         return check;
     }
 
     public Point[] cameraSurfacePoint(Camera camera) {
-        double width = 2.0 * Math.tan(Math.toRadians(camera.getAngleWidth())/2.0) * camera.getRange();
+        double width = 2.0 * Math.tan(Math.toRadians(camera.getAngleWidth()) / 2.0) * camera.getRange();
 
-        double height = 2.0 * Math.tan(Math.toRadians(camera.getAngleHeight())/2.0) * camera.getRange();
+        double height = 2.0 * Math.tan(Math.toRadians(camera.getAngleHeight()) / 2.0) * camera.getRange();
 //        System.out.println("Width" + width + "Height" + height);
         Point cameraPoint = new Point(camera.getxCamera(), camera.getyCamera(), camera.getzCamera());
         Point O = new Point();
