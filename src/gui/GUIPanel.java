@@ -12,7 +12,7 @@ public class GUIPanel extends JPanel {
 
     ArrayList<ArrayList<Integer>> status = new ArrayList<ArrayList<Integer>>();
     
-    private int size = 5;
+    private int size = 2;
     
     public GUIPanel(ArrayList<ArrayList<Integer>> status)
     {
@@ -24,9 +24,9 @@ public class GUIPanel extends JPanel {
     public void paintComponent(Graphics g)
     {
         super.paintComponent(g);
-        for (int j = 0; j < status.get(0).size(); j++)
+        for (int j = 0; j < status.size(); j++)
         {
-            for (int i = 0; i < status.size(); i++)
+            for (int i = 0; i < status.get(0).size(); i++)
             {
                 if (status.get(j).get(i) == 1)
                     g.setColor(Color.GRAY);
