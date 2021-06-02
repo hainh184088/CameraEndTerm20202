@@ -25,10 +25,10 @@ public class HomeFrame extends GUIFrame {
 	private JButton displayHidden = new JButton("Hiển thị vùng khuất");
 
 	Room room = new Room();
-	ArrayList<ArrayList<ArrayList<Integer>>> coordinates = new ArrayList<ArrayList<ArrayList<Integer>>>();
+	
 	double step = 1;
     double stepTimes = 1 / step;
-	
+    	
 	public HomeFrame() {
 		super();
 		
@@ -238,7 +238,7 @@ public class HomeFrame extends GUIFrame {
 									JOptionPane.showMessageDialog(null, "Vật thể không nằm trong phòng hoặc một phần của vật thể ở ngoài phòng", "Warning", JOptionPane.WARNING_MESSAGE);
 	                        }
 								else {									
-									JOptionPane.showMessageDialog(null, "Thêm vật thành công");
+									JOptionPane.showMessageDialog(null, "Thêm vật thể thành công");
 								}
 							}
 						}
@@ -457,11 +457,14 @@ public class HomeFrame extends GUIFrame {
 	    			JOptionPane.showMessageDialog(null, "Chưa lập phòng", "Warning", JOptionPane.WARNING_MESSAGE);
 	    		}
 	    		else {
+	    			ArrayList<ArrayList<ArrayList<Integer>>> coordinates = new ArrayList<ArrayList<ArrayList<Integer>>>();
+	    			
 	    			ArrayList<ArrayList<Integer>> status1 = new ArrayList<ArrayList<Integer>>();
 	    			ArrayList<ArrayList<Integer>> status2 = new ArrayList<ArrayList<Integer>>();
 	    			ArrayList<ArrayList<Integer>> status3 = new ArrayList<ArrayList<Integer>>();
 	    			ArrayList<ArrayList<Integer>> status4 = new ArrayList<ArrayList<Integer>>();
 	    			ArrayList<ArrayList<Integer>> status5 = new ArrayList<ArrayList<Integer>>();
+	    			
 	    			Point newPoint = new Point(0, 0, 0);
                     for (int k = 0; k <= room.getRoomHeight(); k += step) {
                         coordinates.add(new ArrayList<ArrayList<Integer>>(room.getRoomWidth()));
@@ -481,41 +484,41 @@ public class HomeFrame extends GUIFrame {
                     }
                     //surface vertical with x = 0
                     for (int k = 0; k <= room.getRoomHeight(); k += step) {
-                    	status1.add(new ArrayList<Integer>(room.getRoomHeight()));
+                    	status1.add(new ArrayList<Integer>(room.getRoomWidth()));
                         for (int j = 0; j <= room.getRoomWidth(); j += step) {
                         	//status2[k][j] = coordinates.get((int) (k*stepTimes)).get((int) (j*stepTimes)).get(0);
-                        	status1.get((int) (k*stepTimes)).add((int) (j*stepTimes), coordinates.get((int) ((room.getRoomHeight()-k)*stepTimes)).get((int) (j*stepTimes)).get(0));
+                        	status1.get((int) (k*stepTimes)).add((int) (j*stepTimes), (coordinates.get((int) ((room.getRoomHeight()-k)*stepTimes)).get((int) (j*stepTimes)).get(0)));
                         }
                     }
                     //surface vertical with x = roomLength
                     for (int k = 0; k <= room.getRoomHeight(); k += step) {
-                    	status2.add(new ArrayList<Integer>(room.getRoomHeight()));
+                    	status2.add(new ArrayList<Integer>(room.getRoomWidth()));
                         for (int j = 0; j <= room.getRoomWidth(); j += step) {
-                        	status2.get((int) (k*stepTimes)).add((int) (j*stepTimes), coordinates.get((int) ((room.getRoomHeight()-k)*stepTimes)).get((int) ((room.getRoomWidth()-j)*stepTimes)).get(room.getRoomLength()));
+                        	status2.get((int) (k*stepTimes)).add((int) (j*stepTimes), (coordinates.get((int) ((room.getRoomHeight()-k)*stepTimes)).get((int) ((room.getRoomWidth()-j)*stepTimes)).get(room.getRoomLength())));
                         	//status2[k][j] = coordinates.get((int) (k*stepTimes)).get((int) (j*stepTimes)).get(room.getRoomLength());
                         }
                     }
                     //surface vertical with y = 0
                     for (int k = 0; k <= room.getRoomHeight(); k += step) {
-                    	status3.add(new ArrayList<Integer>(room.getRoomHeight()));
+                    	status3.add(new ArrayList<Integer>(room.getRoomLength()));
                         for (int i = 0; i <= room.getRoomLength(); i += step) {
-                        	status3.get((int) (k*stepTimes)).add((int) (i*stepTimes), coordinates.get((int) ((room.getRoomHeight()-k)*stepTimes)).get(0).get((int) ((room.getRoomLength()-i)*stepTimes)));
+                        	status3.get((int) (k*stepTimes)).add((int) (i*stepTimes), (coordinates.get((int) ((room.getRoomHeight()-k)*stepTimes)).get(0).get((int) ((room.getRoomLength()-i)*stepTimes))));
                         	//status3[k][i] = coordinates.get((int) (k*stepTimes)).get(0).get((int) (i*stepTimes));
                         }
                     }
                     //surface vertical with y = roomWidth
                     for (int k = 0; k <= room.getRoomHeight(); k += step) {
-                    	status4.add(new ArrayList<Integer>(room.getRoomHeight()));
+                    	status4.add(new ArrayList<Integer>(room.getRoomLength()));
                         for (int i = 0; i <= room.getRoomLength(); i += step) {
-                        	status4.get((int) (k*stepTimes)).add((int) (i*stepTimes), coordinates.get((int) ((room.getRoomHeight()-k)*stepTimes)).get(room.getRoomWidth()).get((int) (i*stepTimes)));
+                        	status4.get((int) (k*stepTimes)).add((int) (i*stepTimes), (coordinates.get((int) ((room.getRoomHeight()-k)*stepTimes)).get(room.getRoomWidth()).get((int) (i*stepTimes))));
                         	//status4[k][i] = coordinates.get((int) (k*stepTimes)).get(room.getRoomWidth()).get((int) (i*stepTimes));
                         }
                     }
                     //surface horizontal with k = 0
                     for (int j = 0; j <= room.getRoomWidth(); j += step) {
-                    	status5.add(new ArrayList<Integer>(room.getRoomWidth()));
+                    	status5.add(new ArrayList<Integer>(room.getRoomLength()));
                         for (int i = 0; i <= room.getRoomLength(); i += step) {
-                        	status5.get((int) (j*stepTimes)).add((int) (i*stepTimes), coordinates.get(0).get((int) (j*stepTimes)).get((int) (i*stepTimes)));
+                        	status5.get((int) (j*stepTimes)).add((int) (i*stepTimes), (coordinates.get(0).get((int) (j*stepTimes)).get((int) (i*stepTimes))));
                         	//status5[j][i] = coordinates.get(room.getRoomHeight()).get((int) (j*stepTimes)).get((int) (i*stepTimes));                            
                         }
                     }
@@ -523,12 +526,12 @@ public class HomeFrame extends GUIFrame {
                     
 	    			GUIDialog displayHiddenDialog= new GUIDialog(null);
 	    			displayHiddenDialog.setTitle("Hiển thị vùng khuất");
-	    			displayHiddenDialog.setSize(1240,820);
-	    			//remove(displayHiddenDialog.okJButton);
+	    			displayHiddenDialog.setSize(1250,860);
 	    			//displayHiddenDialog.okJButton.setSize(100,30);
 	    			//displayHiddenDialog.okJButton.setLocation(450,400);
 	    			//displayHiddenDialog.okJButton.setFocusPainted(false);
-	    			add(displayHiddenDialog.okJButton); // ???
+	    			add(displayHiddenDialog.okJButton);
+	    			remove(displayHiddenDialog.okJButton);
 	    				    			
 	    			JLabel vertX0 = new JLabel("surface vertical with x = 0 (trái sang phải)");
 	    			JLabel vertXL = new JLabel("surface vertical with x = room length (phải sang trái)");
